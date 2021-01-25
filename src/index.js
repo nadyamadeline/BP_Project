@@ -3,10 +3,40 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+
+// create initial state
+const initialState = {
+  hitung: 0,
+}
+
+// create reducer
+const rootReducer = (state = initialState,action) => {
+  switch(action.type){
+    case 'ADD_COUNT':
+      return {
+        ...state,
+        hitung: state.hitung + 1
+      };
+      case 'MINUS_COUNT':
+        return {
+          ...state,
+          hitung: state.hitung - 1
+        };
+    default: return state
+  }
+  
+}
+
+// create store
+const store = createStore(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
     <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
